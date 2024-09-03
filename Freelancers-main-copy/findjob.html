@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find a Job</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 60%;
+            margin: 50px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .search-job-btn {
+            display: block;
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .search-job-btn:hover {
+            background-color: #0056b3;
+        }
+
+        form input, form select {
+            width: calc(100% - 22px);
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        form button {
+            background-color: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        form button:hover {
+            background-color: #218838;
+        }
+
+        .job-list {
+            margin-top: 20px;
+        }
+
+        .job-card {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .job-card h3 {
+            margin: 0;
+            color: #007bff;
+        }
+
+        .job-card p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .job-card p strong {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Find a Job</h2>
+        <button class="search-job-btn" onclick="showSearchForm()">Search Jobs</button>
+
+        <form id="search-form" style="display:none;" onsubmit="searchJobListings(event)">
+            <input type="text" id="search-title" placeholder="Job Title" required>
+            <input type="text" id="search-company" placeholder="Company Name">
+            <input type="text" id="search-location" placeholder="Location">
+            <button type="submit">Search</button>
+        </form>
+
+        <div class="job-list" id="job-list">
+            <!-- Job search results will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+        function showSearchForm() {
+            document.getElementById("search-form").style.display = "block";
+        }
+
+        function searchJobListings(event) {
+            event.preventDefault();
+
+            // Get form values
+            const jobTitle = document.getElementById("search-title").value;
+            const companyName = document.getElementById("search-company").value;
+            const location = document.getElementById("search-location").value;
+
+            // Create new job card
+            const jobCard = document.createElement("div");
+            jobCard.classList.add("job-card");
+            jobCard.innerHTML = `
+                <h3>${jobTitle || "Job Title"}</h3>
+                <p><strong>Company:</strong> ${companyName || "Company Name"}</p>
+                <p><strong>Location:</strong> ${location || "Location"}</p>
+                <p><em>Search results based on provided criteria.</em></p>
+            `;
+
+            // Add new job card to job list
+            document.getElementById("job-list").appendChild(jobCard);
+
+            // Reset and hide the form
+            document.getElementById("search-form").reset();
+            document.getElementById("search-form").style.display = "none";
+        }
+    </script>
+
+</body>
+</html>

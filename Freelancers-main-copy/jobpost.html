@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Jobs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 60%;
+            margin: 50px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .post-job-btn {
+            display: block;
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .post-job-btn:hover {
+            background-color: #0056b3;
+        }
+
+        form {
+            margin: 20px 0;
+        }
+
+        form input, form textarea {
+            width: calc(100% - 22px);
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        form button {
+            background-color: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        form button:hover {
+            background-color: #218838;
+        }
+
+        .job-list {
+            margin-top: 20px;
+        }
+
+        .job-card {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .job-card h3 {
+            margin: 0;
+            color: #007bff;
+        }
+
+        .job-card p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .job-card p strong {
+            color: #333;
+        }
+        .remove-job-btn {
+            background-color: #ff4d4d;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        .remove-job-btn:hover {
+            background-color: #cc0000;
+        }
+                                                
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Post a Job</h2>
+        <button class="post-job-btn" onclick="showJobForm()">Post Job</button>
+
+        <form id="job-form" style="display:none;" onsubmit="addJobListing(event)">
+            <input type="text" id="job-title" placeholder="Job Title" required>
+            <input type="text" id="company-name" placeholder="Company Name" required>
+            <input type="text" id="location" placeholder="Location" required>
+            <textarea id="job-description" rows="4" placeholder="Job Description" required></textarea>
+            <button type="submit">Add Job Listing</button>
+        </form>
+
+        <div class="job-list" id="job-list">
+            <!-- Job listings will be added here -->
+        </div>
+    </div>
+    <script>
+        function showJobForm() {
+            document.getElementById("job-form").style.display = "block";
+        }
+    
+        // Function to load stored job listings from localStorage
+        function loadJobListings() {
+            const jobs = JSON.parse(localStorage.getItem('jobListings')) || [];
+            jobs.forEach(jobData => {
+                addJobToList(jobData);
+            });
+        }
+    
+        // Function to save job listings to localStorage
+        function saveJobListings(jobs) {
+            localStorage.setItem('jobListings', JSON.stringify(jobs));
+        }
+    
+        // Function to add a job listing to the list
+        function addJobToList(jobData) {
+            const jobCard = document.createElement("div");
+            jobCard.classList.add("job-card");
+    
+            jobCard.innerHTML = `
+                <h3>${jobData.jobTitle}</h3>
+                <p><strong>Company:</strong> ${jobData.companyName}</p>
+                <p><strong>Location:</strong> ${jobData.location}</p>
+                <p>${jobData.jobDescription}</p>
+                <button class="remove-job-btn">Remove</button>
+            `;
+    
+            // Add event listener to remove button
+            jobCard.querySelector('.remove-job-btn').addEventListener('click', function() {
+                document.getElementById("job-list").removeChild(jobCard);
+                removeJobFromStorage(jobData);
+            });
+    
+            document.getElementById("job-list").appendChild(jobCard);
+        }
+    
+        // Function to remove a job from localStorage
+        function removeJobFromStorage(jobData) {
+            let jobs = JSON.parse(localStorage.getItem('jobListings')) || [];
+            jobs = jobs.filter(job => job.jobTitle !== jobData.jobTitle || job.companyName !== jobData.companyName);
+            saveJobListings(jobs);
+        }
+    
+        // Load existing job listings on page load
+        loadJobListings();
+    
+        function addJobListing(event) {
+            event.preventDefault();
+    
+            // Get form values
+            const jobTitle = document.getElementById("job-title").value;
+            const companyName = document.getElementById("company-name").value;
+            const location = document.getElementById("location").value;
+            const jobDescription = document.getElementById("job-description").value;
+    
+            // Create job data object
+            const jobData = { jobTitle, companyName, location, jobDescription };
+    
+            // Add the job to the list
+            addJobToList(jobData);
+    
+            // Save the job to localStorage
+            const jobs = JSON.parse(localStorage.getItem('jobListings')) || [];
+            jobs.push(jobData);
+            saveJobListings(jobs);
+    
+            // Reset and hide the form
+            document.getElementById("job-form").reset();
+            document.getElementById("job-form").style.display = "none";
+        }
+    </script>
+</body>
+</html>

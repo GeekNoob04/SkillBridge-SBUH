@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Payment Gateway</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .payment-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .payment-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            background-color: #fafafa;
+            font-size: 16px;
+        }
+
+        .payment-button {
+            background-color: #28a745;
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .payment-button:hover {
+            background-color: #218838;
+        }
+
+        .spinner {
+            display: none;
+            margin: 20px auto;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #28a745;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #payment-message {
+            margin-top: 20px;
+            font-size: 16px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="payment-container">
+        <h2>Mock Payment Gateway</h2>
+        <form id="payment-form">
+            <input type="text" class="input-field" placeholder="Card Number" required>
+            <input type="text" class="input-field" placeholder="Expiry Date (MM/YY)" required>
+            <input type="text" class="input-field" placeholder="CVC" required>
+            <button class="payment-button" id="submit-button">Pay Now</button>
+            <div class="spinner" id="spinner"></div>
+            <div id="payment-message"></div>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('payment-form');
+        const submitButton = document.getElementById('submit-button');
+        const spinner = document.getElementById('spinner');
+        const message = document.getElementById('payment-message');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Simulate a delay to mimic payment processing
+            spinner.style.display = 'block';
+            submitButton.disabled = true;
+
+            setTimeout(() => {
+                spinner.style.display = 'none';
+                window.location.href = "success.html";  // Redirect to success page
+            }, 2000);  // 2 second delay to simulate processing time
+        });
+    </script>
+</body>
+</html>

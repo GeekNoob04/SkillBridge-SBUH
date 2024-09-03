@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="hi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>प्रोफ़ाइल कार्ड</title>
+    <style>
+      body {
+          font-family: 'Poppins', sans-serif;
+          background-color: #f0f2f5;
+          margin: 0;
+          padding: 20px;
+      }
+
+      .container {
+          max-width: 800px;
+          margin: 0 auto;
+          padding: 20px;
+          background-color: white;
+          border-radius: 10px;
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+          animation: fadeIn 0.5s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+          from {
+              opacity: 0;
+          }
+          to {
+              opacity: 1;
+          }
+      }
+
+      .title {
+          text-align: center;
+          color: #333;
+          margin-bottom: 20px;
+      }
+
+      .form-group {
+          margin-bottom: 15px;
+      }
+
+      .form-group label {
+          display: block;
+          margin-bottom: 5px;
+          color: #555;
+      }
+
+      .form-group input, .form-group textarea {
+          width: 100%;
+          padding: 12px;
+          border-radius: 10px;
+          border: 1px solid #ddd;
+          font-size: 16px;
+          background-color: #fafafa;
+      }
+
+      .form-group textarea {
+          resize: none;
+          height: 100px;
+      }
+
+      .submit-button {
+          background-color: #007bff;
+          color: white;
+          padding: 14px 20px;
+          border: none;
+          border-radius: 10px;
+          cursor: pointer;
+          width: 100%;
+          font-size: 16px;
+          font-weight: bold;
+          transition: background-color 0.3s ease-in-out;
+      }
+
+      .submit-button:hover {
+          background-color: #0056b3;
+      }
+
+      .card-container {
+          margin-top: 30px;
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+          gap: 20px;
+      }
+
+      .card {
+          background-color: #fff;
+          padding: 20px;
+          border-radius: 15px;
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+          transition: transform 0.3s ease;
+          border: 1px solid #ddd;
+      }
+
+      .card:hover {
+          transform: scale(1.05);
+      }
+
+      .card h3 {
+          color: #333;
+          margin-bottom: 10px;
+      }
+
+      .card p {
+          color: #777;
+          font-size: 14px;
+          margin-bottom: 8px;
+      }
+
+      .card strong {
+          color: #333;
+      }
+      .remove-card-btn {
+          background-color: #ff4d4d;
+          color: white;
+          padding: 8px 12px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 14px;
+          margin-top: 10px;
+          display: inline-block;
+      }
+
+      .remove-card-btn:hover {
+          background-color: #cc0000;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2 class="title">प्रोफ़ाइल कार्ड बनाएं</h2>
+
+      <form id="profile-form">
+        <div class="form-group">
+          <label for="name">नाम</label>
+          <input type="text" id="name" required />
+        </div>
+        <div class="form-group">
+          <label for="age">उम्र</label>
+          <input type="number" id="age" required />
+        </div>
+        <div class="form-group">
+          <label for="email">ईमेल</label>
+          <input type="email" id="email" required />
+        </div>
+        <div class="form-group">
+          <label for="skills">कौशल</label>
+          <input type="text" id="skills" required />
+        </div>
+        <div class="form-group">
+          <label for="experience">अनुभव (यदि कोई हो)</label>
+          <textarea id="experience"></textarea>
+        </div>
+        <button type="submit" class="submit-button">प्रोफ़ाइल कार्ड बनाएं</button>
+      </form>
+
+      <div class="card-container" id="card-container">
+        <!-- प्रोफ़ाइल कार्ड यहां गतिशील रूप से जोड़े जाएंगे -->
+      </div>
+    </div>
+    <script>
+      const form = document.getElementById('profile-form');
+      const cardContainer = document.getElementById('card-container');
+
+      // स्थानीय संग्रहण से संग्रहीत कार्ड लोड करने का कार्य
+      function loadCards() {
+          const cards = JSON.parse(localStorage.getItem('profileCards')) || [];
+          cards.forEach(cardData => {
+              addCardToContainer(cardData);
+          });
+      }
+
+      // कार्ड को स्थानीय संग्रहण में सहेजने का कार्य
+      function saveCards(cards) {
+          localStorage.setItem('profileCards', JSON.stringify(cards));
+      }
+
+      // कार्ड को कंटेनर में जोड़ने का कार्य
+      function addCardToContainer(cardData) {
+          const card = document.createElement('div');
+          card.className = 'card';
+
+          card.innerHTML = `
+              <h3>${cardData.name}</h3>
+              <p><strong>उम्र:</strong> ${cardData.age}</p>
+              <p><strong>ईमेल:</strong> ${cardData.email}</p>
+              <p><strong>कौशल:</strong> ${cardData.skills}</p>
+              <p><strong>अनुभव:</strong> ${cardData.experience ? cardData.experience : "अनुभव नहीं दिया गया।"}</p>
+              <button class="remove-card-btn">हटाएं</button>
+          `;
+
+          // हटाने के बटन पर इवेंट लिसनर जोड़ें
+          card.querySelector('.remove-card-btn').addEventListener('click', function() {
+              cardContainer.removeChild(card);
+              removeCardFromStorage(cardData);
+          });
+
+          cardContainer.appendChild(card);
+      }
+
+      // कार्ड को स्थानीय संग्रहण से हटाने का कार्य
+      function removeCardFromStorage(cardData) {
+          let cards = JSON.parse(localStorage.getItem('profileCards')) || [];
+          cards = cards.filter(card => card.email !== cardData.email);
+          saveCards(cards);
+      }
+
+      // पृष्ठ लोड पर मौजूदा कार्ड लोड करें
+      loadCards();
+
+      form.addEventListener('submit', function(event) {
+          event.preventDefault();
+
+          // फ़ॉर्म मान प्राप्त करें
+          const name = document.getElementById('name').value;
+          const age = document.getElementById('age').value;
+          const email = document.getElementById('email').value;
+          const skills = document.getElementById('skills').value;
+          const experience = document.getElementById('experience').value;
+
+          // कार्ड डेटा ऑब्जेक्ट बनाएं
+          const cardData = { name, age, email, skills, experience };
+
+          // कार्ड को कंटेनर में जोड़ें
+          addCardToContainer(cardData);
+
+          // कार्ड को स्थानीय संग्रहण में सहेजें
+          const cards = JSON.parse(localStorage.getItem('profileCards')) || [];
+          cards.push(cardData);
+          saveCards(cards);
+
+          // फ़ॉर्म को साफ़ करें
+          form.reset();
+
+          // नए कार्ड तक स्मूथली स्क्रॉल करें
+          cardContainer.lastChild.scrollIntoView({ behavior: 'smooth' });
+      });
+    </script>
+  </body>
+</html>

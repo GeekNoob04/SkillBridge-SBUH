@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>नौकरी पोस्ट करें</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 60%;
+            margin: 50px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .post-job-btn {
+            display: block;
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .post-job-btn:hover {
+            background-color: #0056b3;
+        }
+
+        form {
+            margin: 20px 0;
+        }
+
+        form input, form textarea {
+            width: calc(100% - 22px);
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        form button {
+            background-color: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        form button:hover {
+            background-color: #218838;
+        }
+
+        .job-list {
+            margin-top: 20px;
+        }
+
+        .job-card {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .job-card h3 {
+            margin: 0;
+            color: #007bff;
+        }
+
+        .job-card p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .job-card p strong {
+            color: #333;
+        }
+        .remove-job-btn {
+            background-color: #ff4d4d;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        .remove-job-btn:hover {
+            background-color: #cc0000;
+        }
+                                                
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>नौकरी पोस्ट करें</h2>
+        <button class="post-job-btn" onclick="showJobForm()">नौकरी पोस्ट करें</button>
+
+        <form id="job-form" style="display:none;" onsubmit="addJobListing(event)">
+            <input type="text" id="job-title" placeholder="नौकरी का शीर्षक" required>
+            <input type="text" id="company-name" placeholder="कंपनी का नाम" required>
+            <input type="text" id="location" placeholder="स्थान" required>
+            <textarea id="job-description" rows="4" placeholder="नौकरी का विवरण" required></textarea>
+            <button type="submit">नौकरी सूची में जोड़ें</button>
+        </form>
+
+        <div class="job-list" id="job-list">
+            <!-- नौकरी सूचियाँ यहाँ जोड़ी जाएँगी -->
+        </div>
+    </div>
+    <script>
+        function showJobForm() {
+            document.getElementById("job-form").style.display = "block";
+        }
+    
+        // स्थानीय संग्रहण से संग्रहीत नौकरी सूचियों को लोड करने का कार्य
+        function loadJobListings() {
+            const jobs = JSON.parse(localStorage.getItem('jobListings')) || [];
+            jobs.forEach(jobData => {
+                addJobToList(jobData);
+            });
+        }
+    
+        // नौकरी सूचियों को स्थानीय संग्रहण में सहेजने का कार्य
+        function saveJobListings(jobs) {
+            localStorage.setItem('jobListings', JSON.stringify(jobs));
+        }
+    
+        // नौकरी सूची में नौकरी जोड़ने का कार्य
+        function addJobToList(jobData) {
+            const jobCard = document.createElement("div");
+            jobCard.classList.add("job-card");
+    
+            jobCard.innerHTML = `
+                <h3>${jobData.jobTitle}</h3>
+                <p><strong>कंपनी:</strong> ${jobData.companyName}</p>
+                <p><strong>स्थान:</strong> ${jobData.location}</p>
+                <p>${jobData.jobDescription}</p>
+                <button class="remove-job-btn">हटाएं</button>
+            `;
+    
+            // हटाने के बटन पर इवेंट श्रोता जोड़ें
+            jobCard.querySelector('.remove-job-btn').addEventListener('click', function() {
+                document.getElementById("job-list").removeChild(jobCard);
+                removeJobFromStorage(jobData);
+            });
+    
+            document.getElementById("job-list").appendChild(jobCard);
+        }
+    
+        // स्थानीय संग्रहण से नौकरी हटाने का कार्य
+        function removeJobFromStorage(jobData) {
+            let jobs = JSON.parse(localStorage.getItem('jobListings')) || [];
+            jobs = jobs.filter(job => job.jobTitle !== jobData.jobTitle || job.companyName !== jobData.companyName);
+            saveJobListings(jobs);
+        }
+    
+        // पृष्ठ लोड पर मौजूदा नौकरी सूचियों को लोड करें
+        loadJobListings();
+    
+        function addJobListing(event) {
+            event.preventDefault();
+    
+            // फॉर्म मान प्राप्त करें
+            const jobTitle = document.getElementById("job-title").value;
+            const companyName = document.getElementById("company-name").value;
+            const location = document.getElementById("location").value;
+            const jobDescription = document.getElementById("job-description").value;
+    
+            // नौकरी डेटा ऑब्जेक्ट बनाएं
+            const jobData = { jobTitle, companyName, location, jobDescription };
+    
+            // सूची में नौकरी जोड़ें
+            addJobToList(jobData);
+    
+            // नौकरी को स्थानीय संग्रहण में सहेजें
+            const jobs = JSON.parse(localStorage.getItem('jobListings')) || [];
+            jobs.push(jobData);
+            saveJobListings(jobs);
+    
+            // फॉर्म रीसेट करें और छुपाएँ
+            document.getElementById("job-form").reset();
+            document.getElementById("job-form").style.display = "none";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Successful</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .success-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 400px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .success-icon {
+            font-size: 80px;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+
+        .success-message {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .success-subtext {
+            font-size: 16px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="success-container">
+        <div class="success-icon">✔️</div>
+        <div class="success-message">Transaction Successful</div>
+        <div class="success-subtext">Thank you for your payment.</div>
+    </div>
+
+</body>
+</html>

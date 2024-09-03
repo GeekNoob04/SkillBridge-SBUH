@@ -1,0 +1,107 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Columns Styling */
+.columns {
+    display: flex;
+    justify-content: space-between; /* Distribute space between the columns */
+    align-items: center;
+    margin: 20px 0;
+}
+
+.column5 {
+    flex: 1; /* Allow columns to grow equally */
+    text-align: center;
+}
+
+.icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+/* Button Styling */
+.find-button,
+.talent-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.find-button:hover,
+.talent-button:hover {
+    background-color: #0056b3;
+}
+
+/* Media Query for Responsiveness */
+@media (max-width: 600px) {
+    .columns {
+        flex-direction: column;
+    }
+
+    .column5 {
+        margin-bottom: 20px;
+    }
+}
+.log button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #28a745; /* Adjust the background color as needed */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .log button:hover {
+    background-color: #218838; /* Adjust the hover background color as needed */
+  }
+  
+  .log button:focus {
+    outline: none;
+    box-shadow: 0 0 5px #218838; /* Optional: Add a shadow on focus */
+  }
+  .column1 img {
+    width: 136px; 
+    height: auto; 
+}
+
+.columnphone, .columnphonea {
+    flex: 1 1 20%; 
+    box-sizing: border-box;
+    padding: 10px;
+    margin: 5px 0;
+    min-width: 150px; 
+}
+
+.phone {
+    display: flex;
+    align-items: center;
+}
+
+.png {
+    margin-right: 10px;
+    font-size: 1.5rem;
+}
+
+.no p {
+    margin: 0;
+    font-size: 1rem;
+    word-break: break-all; 
+}
+.ai{
+    width: 35px;
+}

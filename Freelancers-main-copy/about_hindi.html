@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>हमारे बारे में - भारत के लिए फ्रीलांसिंग अवसर</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0f7fa, #a7ffeb); /* Greenish gradient */
+            color: #333;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Container Styles */
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 40px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Heading Styles */
+        h1 {
+            color: #26a69a; /* Green color */
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        h1::after {
+            content: '';
+            width: 120px;
+            height: 5px;
+            background: linear-gradient(90deg, #26a69a, #66bb6a); /* Greenish gradient */
+            display: block;
+            margin: 12px auto 0;
+            border-radius: 2px;
+        }
+
+        h2 {
+            color: #43a047; /* Darker green */
+            font-size: 26px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #81c784; /* Light green */
+            position: relative;
+        }
+
+        h2::before {
+            content: '';
+            width: 8px;
+            height: 100%;
+            background-color: #81c784; /* Light green */
+            position: absolute;
+            left: -20px;
+            top: 0;
+            border-radius: 3px;
+        }
+
+        /* Paragraph and List Styles */
+        p {
+            line-height: 1.9;
+            margin-bottom: 20px;
+            font-size: 17px;
+            color: #4f4f4f;
+            text-align: justify;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: #444444;
+            position: relative;
+            padding-left: 30px;
+            transition: background-color 0.3s ease;
+        }
+
+        ul li:hover {
+            background-color: #e0f2f1; /* Light greenish on hover */
+            cursor: pointer;
+            transform: scale(1.02);
+        }
+
+        ul li .tooltip {
+            visibility: hidden;
+            width: 320px;
+            background: linear-gradient(135deg, #26a69a, #43a047); /* Green gradient for tooltip */
+            color: #ffffff;
+            text-align: left;
+            border-radius: 10px;
+            padding: 15px;
+            position: absolute;
+            z-index: 1;
+            bottom: 150%;
+            left: 50%;
+            margin-left: -160px;
+            opacity: 0;
+            transition: opacity 0.4s, transform 0.4s;
+            font-size: 14px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        ul li:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(-10px);
+        }
+
+        ul li::before {
+            content: '\2713'; /* Checkmark bullet */
+            color: #26a69a; /* Green color */
+            font-size: 18px;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        /* Team Members List Styles */
+        .team-list {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 30px;
+            padding: 0;
+            justify-content: space-between;
+        }
+
+        .team-list li {
+            background: linear-gradient(145deg, #e8f5e9, #a5d6a7); /* Greenish gradient */
+            margin: 10px;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #aed581; /* Light green border */
+            width: calc(48% - 20px);
+            text-align: center;
+            font-size: 16px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 6px 6px 12px rgba(102, 187, 106, 0.3), -6px -6px 12px rgba(224, 242, 241, 0.6);
+        }
+
+        .team-list li:hover {
+            transform: translateY(-8px);
+            background: linear-gradient(145deg, #a5d6a7, #e8f5e9); /* Reverse greenish gradient */
+            box-shadow: 8px 8px 20px rgba(67, 160, 71, 0.5), -8px -8px 20px rgba(224, 242, 241, 0.8);
+        }
+
+        /* Footer Styles */
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 14px;
+            color: #888888;
+            padding-top: 20px;
+            border-top: 1px solid #c8e6c9; /* Light green */
+        }
+
+        /* Button Styles */
+        .button {
+            display: inline-block;
+            padding: 12px 25px;
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            color: #ffffff;
+            background-color: #388e3c; /* Darker green */
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(56, 142, 60, 0.4);
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+
+        .button:hover {
+            background-color: #2e7d32; /* Darker green on hover */
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(56, 142, 60, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>हमारे बारे में</h1>
+        <p><strong>हमारा अवधारणा:</strong> फ्रीलांसिंग अवसर</p>
+        <p>फ्रीलांसरों और गिग वर्करों को अल्पकालिक और प्रोजेक्ट-आधारित नौकरी के अवसरों से जोड़ने में एक महत्वपूर्ण अंतर है। हमारा प्लेटफ़ॉर्म इस अंतर को पाटने के लिए एक ऐसा वातावरण बनाता है जो फ्रीलांसरों को नियोक्ताओं से जोड़ता है और फ्रीलांस प्रोजेक्ट्स को प्रबंधित करने के लिए उपकरण प्रदान करता है।</p>
+        
+        <h2>हमारा दृष्टिकोण:</h2>
+        <ul>
+            <li>
+                फ्रीलांस जॉब मार्केटप्लेस
+                <div class="tooltip">एक मार्केटप्लेस विकसित करना जहाँ फ्रीलांसर अल्पकालिक नौकरियाँ, गिग वर्क और प्रोजेक्ट-आधारित अवसर पा सकते हैं। नियोक्ता प्रोजेक्ट पोस्ट कर सकते हैं, आवश्यकताएँ निर्दिष्ट कर सकते हैं और फ्रीलांसरों को आवेदन के लिए आमंत्रित कर सकते हैं।</div>
+            </li>
+            <li>
+                फ्रीलांस प्रोफाइल और पोर्टफोलियो प्रबंधन
+                <div class="tooltip">फ्रीलांसरों को विस्तृत प्रोफाइल बनाने की अनुमति देना जिसमें उनके कौशल, अनुभव और पिछले काम का पोर्टफोलियो शामिल हो। पूर्ण किए गए प्रोजेक्ट्स पर फीडबैक के लिए रेटिंग और रिव्यू सिस्टम एकीकृत करना।</div>
+            </li>
+            <li>
+                विस्तृत खोज और विश्लेषण
+                <div class="tooltip">नियोक्ताओं और फ्रीलांसरों को उपलब्ध डेटा या जनित डेटा में विस्तृत खोज करने की अनुमति देना। डेटा में एआई-सक्षम अंतर्दृष्टियाँ उत्पन्न करना और नौकरी चाहने वालों और नियोक्ताओं को संलग्न करने के लिए नए तरीके प्रदान करना, साथ ही एआई-आधारित सिफारिश प्रणाली प्रदान करना।</div>
+            </li>
+            <li>
+                एस्क्रो खाता निर्माण
+                <div class="tooltip">एक एस्क्रो खाता बनाने का प्रावधान बनाना जिसका उपयोग पैसे को काम पूरी तरह से वितरित होने तक रखा जा सकता है। नियोक्ताओं और फ्रीलांसरों के बीच सुगम वित्तीय लेनदेन की सुविधा के लिए सुरक्षित भुगतान गेटवे को एकीकृत करना।</div>
+            </li>
+        </ul>
+        
+        <h2>हमारा समाधान:</h2>
+        <p>प्लेटफ़ॉर्म फ्रीलांसरों को विभिन्न प्रकार के नौकरी के अवसरों से जोड़ देगा और उन्हें प्रोजेक्ट्स को प्रभावी ढंग से प्रबंधित करने के लिए उपकरण प्रदान करेगा, जिसके परिणामस्वरूप बेहतर नौकरी की संतोषजनकता और बढ़ी हुई आय के अवसर प्राप्त होंगे।</p>
+        <p><em>नोट:</em> यह एक नवाचार अवसर है, और हम नए तरीके से समाधान विकसित करने की प्रेरणा देते हैं जो उद्योग की आवश्यकताओं को अद्वितीय तरीके से संबोधित कर सकते हैं।</p>
+
+        <h2>टीम सदस्य:</h2>
+        <ul class="team-list">
+            <li>प्रथम कोठारी - E22CSEU1182</li>
+            <li>प्रिक्शित शर्मा - E22CSEU0005</li>
+            <li>कुनवार आदर्श - E22CSEU0256</li>
+            <li>हरशित कुमार बुद्धराजा - E22CSEU1241</li>
+            <li>लागन बजाज - E23BIOU0030</li>
+            <li>ऋत्विक सिंह - E22CSEU1246</li>
+        </ul>
+        
+        <div class="footer">
+            &copy; 2024 SkillBridge. सर्वाधिकार सुरक्षित।
+        </div>
+    </div>
+</body>
+</html>

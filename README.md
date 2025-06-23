@@ -41,11 +41,6 @@ This project provides a user-friendly interface for interacting with an AI chatb
    ```bash
    pip install -r requirements.txt
    ```
-3. Set up your environment variables by creating a `.env` file and adding your Google API key:
-   ```bash
-   GOOGLE_API_KEY="your-api-key-here"
-   ```
-
 ---
 
 ## 💻 Usage

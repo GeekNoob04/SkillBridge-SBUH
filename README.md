@@ -35,7 +35,7 @@ This project provides a user-friendly interface for interacting with an AI chatb
 
 1. Clone the repository:
    ```bash
-   git clone [your-repository-url]
+   git clone https://github.com/GeekNoob04/SkillBridge-SBUH/
    ```
 2. Install the required dependencies:
    ```bash
@@ -69,27 +69,9 @@ This project provides a user-friendly interface for interacting with an AI chatb
 
 ---
 
-## 📸 Screenshots
-
-[Insert screenshots of the application interface here.]
-
----
-
 ## 🤝 Contributing
 
 Contributions are welcome! If you'd like to contribute to this project, please fork the repository and submit a pull request.
-
----
-
-## 📝 License
-
-[Insert your license information here.]
-
----
-
-## 📬 Contact
-
-For questions or feedback, please contact [your-contact-information].
 
 ---
 
